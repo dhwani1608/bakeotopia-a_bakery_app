@@ -200,17 +200,19 @@
   }
 
   .category-button {
-    @apply px-6 py-3 rounded-full font-medium transition-all duration-300 border border-muted;
-    background: hsl(var(--bakery-blue-light));
-    color: hsl(var(--bakery-blue-muted));
+    @apply px-6 py-3 rounded-full font-semibold transition-all duration-300 border border-transparent;
+    background: hsl(var(--bakery-blue-light) / 0.8);
+    color: hsl(var(--bakery-blue-text));
+    border: 1px solid hsl(var(--bakery-blue-light));
   }
 
   .category-button:hover,
   .category-button.active {
-    background: hsl(var(--bakery-purple-light));
+    background: hsl(var(--bakery-purple));
     color: white;
     transform: translateY(-2px);
     box-shadow: var(--shadow-soft);
+    border-color: hsl(var(--bakery-purple));
   }
 
   .product-card {

@@ -179,7 +179,10 @@ const Header: React.FC<HeaderProps> = ({
             {categories.map((category) => (
               <button
                 key={category}
-                onClick={() => onCategoryChange(category)}
+                onClick={() => {
+                  onCategoryChange(category);
+                  onPageChange('home');
+                }}
                 className={`category-button ${selectedCategory === category ? 'active' : ''}`}
               >
                 {category}
@@ -205,12 +208,13 @@ const Header: React.FC<HeaderProps> = ({
                     key={category}
                     onClick={() => {
                       onCategoryChange(category);
+                      onPageChange('home');
                       setIsCategoryMenuOpen(false);
                     }}
                     className={`w-full text-left px-4 py-2 rounded-lg transition-colors ${
                       selectedCategory === category
-                        ? 'bg-bakery-purple-light text-white'
-                        : 'bg-bakery-blue-light text-bakery-blue-muted hover:bg-bakery-purple-light/20'
+                        ? 'bg-bakery-purple-light text-white font-semibold'
+                        : 'bg-bakery-blue-light text-bakery-blue-text hover:bg-bakery-purple-light/20 hover:text-white'
                     }`}
                   >
                     {category}
