@@ -2,41 +2,63 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Bakeotopia Design System - All colors MUST be HSL */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500;600&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Bakeotopia Color Palette */
+    --bakery-pink-light: 0 20% 93%;           /* #F1E7E7 - primary background, header */
+    --bakery-pink: 330 54% 76%;               /* #E69DB8 - nav hover, buttons */
+    --bakery-peach: 13 100% 89%;              /* #FFD0C7 - footer background */
+    --bakery-cream: 57 100% 91%;              /* #FFFECE - secondary background */
+    --bakery-purple: 245 80% 74%;             /* #8F87F1 - primary buttons */
+    --bakery-purple-light: 285 96% 77%;       /* #C68EFD - hover effects, social icons */
+    --bakery-lavender: 295 75% 80%;           /* #E9A5F1 - accents */
+    --bakery-rose: 340 96% 91%;               /* #FED2E2 - section backgrounds */
+    --bakery-vanilla: 39 100% 94%;            /* #FFF2E0 - about page sections */
+    --bakery-blue-light: 226 58% 84%;         /* #C0C9EE - search bar, category bar background */
+    --bakery-blue-muted: 231 44% 75%;         /* #A2AADB - text, links, category bar text */
+    --bakery-blue-text: 238 34% 66%;          /* #898AC4 - nav text */
+    --bakery-green-light: 94 35% 76%;         /* #CADCAE - login/signup background */
+    --bakery-green-soft: 82 39% 85%;          /* #E1E9C9 - form fields */
+    --bakery-apricot: 28 96% 92%;             /* #FEE8D9 - alternate backgrounds */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
+    /* Semantic tokens using bakery colors */
+    --background: var(--bakery-pink-light);
+    --foreground: var(--bakery-blue-text);
+    --card: var(--bakery-cream);
+    --card-foreground: var(--bakery-blue-text);
+    --popover: var(--bakery-cream);
+    --popover-foreground: var(--bakery-blue-text);
+    --primary: var(--bakery-purple);
+    --primary-foreground: 0 0% 100%;
+    --secondary: var(--bakery-pink);
+    --secondary-foreground: 0 0% 100%;
+    --muted: var(--bakery-blue-light);
+    --muted-foreground: var(--bakery-blue-muted);
+    --accent: var(--bakery-purple-light);
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
+    --border: var(--bakery-blue-light);
+    --input: var(--bakery-green-soft);
+    --ring: var(--bakery-purple);
+    --radius: 0.75rem;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Custom gradients */
+    --gradient-bakery: linear-gradient(135deg, hsl(var(--bakery-pink)) 0%, hsl(var(--bakery-purple-light)) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(var(--bakery-cream)) 0%, hsl(var(--bakery-rose)) 100%);
+    --gradient-category: linear-gradient(90deg, hsl(var(--bakery-blue-light)) 0%, hsl(var(--bakery-lavender)) 100%);
 
-    --radius: 0.5rem;
+    /* Shadows */
+    --shadow-soft: 0 4px 20px -2px hsl(var(--bakery-purple) / 0.1);
+    --shadow-glow: 0 0 30px hsl(var(--bakery-purple-light) / 0.3);
+    --shadow-card: 0 8px 25px -5px hsl(var(--bakery-blue-muted) / 0.15);
+
+    /* Animation variables */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +122,134 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-['Open_Sans'];
+    font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+}
+
+@layer components {
+  /* Bakery-specific component styles */
+  .bakery-gradient {
+    background: var(--gradient-bakery);
+  }
+
+  .hero-gradient {
+    background: var(--gradient-hero);
+  }
+
+  .category-gradient {
+    background: var(--gradient-category);
+  }
+
+  .glass-effect {
+    backdrop-filter: blur(10px);
+    background: hsl(var(--bakery-cream) / 0.8);
+    border: 1px solid hsl(var(--bakery-blue-light) / 0.3);
+  }
+
+  .hover-lift {
+    transition: var(--transition-smooth);
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-glow);
+    }
+  }
+
+  .button-bounce {
+    transition: var(--transition-bounce);
+    &:hover {
+      transform: scale(1.05);
+    }
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+
+  .text-gradient {
+    background: var(--gradient-bakery);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .nav-link {
+    @apply relative transition-colors duration-300;
+    &::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 50%;
+      background: hsl(var(--bakery-pink));
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+    &:hover::after {
+      width: 100%;
+    }
+  }
+
+  .category-button {
+    @apply px-6 py-3 rounded-full font-medium transition-all duration-300 border border-muted;
+    background: hsl(var(--bakery-blue-light));
+    color: hsl(var(--bakery-blue-muted));
+
+    &:hover, &.active {
+      background: hsl(var(--bakery-purple-light));
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-soft);
+    }
+  }
+
+  .product-card {
+    @apply bg-card rounded-2xl overflow-hidden transition-all duration-300 hover-lift;
+    box-shadow: var(--shadow-card);
+    border: 1px solid hsl(var(--bakery-blue-light) / 0.5);
+
+    &:hover {
+      border-color: hsl(var(--bakery-purple-light) / 0.8);
+    }
+  }
+
+  .section-title {
+    @apply text-4xl font-bold text-center mb-12;
+    font-family: 'Poppins', sans-serif;
+    color: hsl(var(--bakery-purple));
+  }
+
+  .floating-animation {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(2deg); }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  /* Staggered animation delays */
+  .delay-100 { animation-delay: 0.1s; }
+  .delay-200 { animation-delay: 0.2s; }
+  .delay-300 { animation-delay: 0.3s; }
+  .delay-400 { animation-delay: 0.4s; }
 }
