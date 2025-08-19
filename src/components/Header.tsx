@@ -180,10 +180,9 @@ const Header: React.FC<HeaderProps> = ({
               <button
                 key={category}
                 onClick={() => {
-                  onCategoryChange(category);
-                  onPageChange('home');
+                  onPageChange(category.toLowerCase());
                 }}
-                className={`category-button ${selectedCategory === category ? 'active' : ''}`}
+                className={`category-button ${currentPage === category.toLowerCase() ? 'active' : ''}`}
               >
                 {category}
               </button>
@@ -197,7 +196,7 @@ const Header: React.FC<HeaderProps> = ({
               onClick={() => setIsCategoryMenuOpen(!isCategoryMenuOpen)}
               className="w-full justify-between bg-bakery-blue-light text-bakery-blue-muted hover:bg-bakery-purple-light hover:text-white"
             >
-              <span>Category: {selectedCategory}</span>
+              <span>Browse Categories</span>
               <Menu className="w-4 h-4" />
             </Button>
             
@@ -207,12 +206,11 @@ const Header: React.FC<HeaderProps> = ({
                   <button
                     key={category}
                     onClick={() => {
-                      onCategoryChange(category);
-                      onPageChange('home');
+                      onPageChange(category.toLowerCase());
                       setIsCategoryMenuOpen(false);
                     }}
                     className={`w-full text-left px-4 py-2 rounded-lg transition-colors ${
-                      selectedCategory === category
+                      currentPage === category.toLowerCase()
                         ? 'bg-bakery-purple-light text-white font-semibold'
                         : 'bg-bakery-blue-light text-bakery-blue-text hover:bg-bakery-purple-light/20 hover:text-white'
                     }`}

@@ -13,6 +13,7 @@ import Feedback from "./pages/Feedback";
 import Cart from "./pages/Cart";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
+import CategoryPage from "./pages/CategoryPage";
 import { Product } from "./components/ProductCard";
 
 // Import product images
@@ -185,6 +186,62 @@ const App = () => {
             selectedCategory={selectedCategory}
             onCategoryChange={setSelectedCategory}
             searchQuery={searchQuery}
+          />
+        );
+      case 'all':
+        return (
+          <CategoryPage
+            category="All"
+            products={sampleProducts}
+            onAddToCart={handleAddToCart}
+          />
+        );
+      case 'pastry':
+        return (
+          <CategoryPage
+            category="Pastry"
+            products={sampleProducts}
+            onAddToCart={handleAddToCart}
+          />
+        );
+      case 'cake':
+        return (
+          <CategoryPage
+            category="Cake"
+            products={sampleProducts}
+            onAddToCart={handleAddToCart}
+          />
+        );
+      case 'brownie':
+        return (
+          <CategoryPage
+            category="Brownie"
+            products={sampleProducts}
+            onAddToCart={handleAddToCart}
+          />
+        );
+      case 'muffin':
+        return (
+          <CategoryPage
+            category="Muffin"
+            products={sampleProducts}
+            onAddToCart={handleAddToCart}
+          />
+        );
+      case 'cupcakes':
+        return (
+          <CategoryPage
+            category="Cupcakes"
+            products={sampleProducts}
+            onAddToCart={handleAddToCart}
+          />
+        );
+      case 'healthy':
+        return (
+          <CategoryPage
+            category="Healthy"
+            products={sampleProducts}
+            onAddToCart={handleAddToCart}
           />
         );
       case 'about':
