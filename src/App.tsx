@@ -1,8 +1,6 @@
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React, { useState } from 'react';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -17,7 +15,7 @@ import CategoryPage from "./pages/CategoryPage";
 import { useProducts } from "./hooks/useProducts";
 import { useCart } from "./hooks/useCart";
 
-const queryClient = new QueryClient();
+
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState('home');
@@ -140,27 +138,25 @@ const App = () => {
   };
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <div className="min-h-screen flex flex-col">
-          <Header
-            currentPage={currentPage}
-            onPageChange={setCurrentPage}
-            cartItemCount={cartItemCount}
-            searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
-            selectedCategory={selectedCategory}
-            onCategoryChange={setSelectedCategory}
-          />
-          <div className="flex-grow">
-            {renderPage()}
-          </div>
-          <Footer onPageChange={setCurrentPage} />
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <div className="min-h-screen flex flex-col">
+        <Header
+          currentPage={currentPage}
+          onPageChange={setCurrentPage}
+          cartItemCount={cartItemCount}
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+          selectedCategory={selectedCategory}
+          onCategoryChange={setSelectedCategory}
+        />
+        <div className="flex-grow">
+          {renderPage()}
         </div>
-      </TooltipProvider>
-    </QueryClientProvider>
+        <Footer onPageChange={setCurrentPage} />
+      </div>
+    </TooltipProvider>
   );
 };
 
