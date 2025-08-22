@@ -1,7 +1,8 @@
 import React from 'react';
 import { ArrowRight, Star, Gift, Award, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import ProductCard, { Product } from '@/components/ProductCard';
+import ProductCard from '@/components/ProductCard';
+import { Product } from '@/hooks/useProducts';
 import heroImage from '@/assets/bakery-hero.jpg';
 import chocolateCake from '@/assets/chocolate-cake.jpg';
 import cupcakes from '@/assets/cupcakes.jpg';
@@ -30,7 +31,7 @@ const Home: React.FC<HomeProps> = ({
     const matchesCategory = selectedCategory === 'All' || product.category === selectedCategory;
     const matchesSearch = searchQuery === '' || 
       product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      product.description.toLowerCase().includes(searchQuery.toLowerCase());
+      (product.description && product.description.toLowerCase().includes(searchQuery.toLowerCase()));
     return matchesCategory && matchesSearch;
   });
 

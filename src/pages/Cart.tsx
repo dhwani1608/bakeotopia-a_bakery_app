@@ -1,16 +1,12 @@
 import React from 'react';
 import { Minus, Plus, Trash2, ShoppingBag, ArrowRight, CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Product } from '@/components/ProductCard';
-
-interface CartItem extends Product {
-  quantity: number;
-}
+import { CartItem } from '@/hooks/useCart';
 
 interface CartProps {
   cartItems: CartItem[];
-  onUpdateQuantity: (productId: string, quantity: number) => void;
-  onRemoveFromCart: (productId: string) => void;
+  onUpdateQuantity: (cartItemId: string, quantity: number) => void;
+  onRemoveFromCart: (cartItemId: string) => void;
   onPageChange: (page: string) => void;
 }
 
@@ -22,9 +18,9 @@ const Cart: React.FC<CartProps> = ({
 }) => {
   const calculateSubtotal = () => {
     return cartItems.reduce((total, item) => {
-      const itemPrice = item.discount 
-        ? item.price * (1 - item.discount / 100)
-        : item.price;
+      const itemPrice = item.products.discount 
+        ? item.products.price * (1 - item.products.discount / 100)
+        : item.products.price;
       return total + (itemPrice * item.quantity);
     }, 0);
   };
@@ -90,9 +86,9 @@ const Cart: React.FC<CartProps> = ({
         {/* Cart Items */}
         <div className="lg:col-span-2 space-y-6">
           {cartItems.map((item, index) => {
-            const itemPrice = item.discount 
-              ? item.price * (1 - item.discount / 100)
-              : item.price;
+            const itemPrice = item.products.discount 
+              ? item.products.price * (1 - item.products.discount / 100)
+              : item.products.price;
             
             return (
               <div 
@@ -103,8 +99,8 @@ const Cart: React.FC<CartProps> = ({
                   {/* Product Image */}
                   <div className="flex-shrink-0">
                     <img
-                      src={item.image}
-                      alt={item.name}
+                      src={item.products.image || ''}
+                      alt={item.products.name}
                       className="w-24 h-24 object-cover rounded-xl"
                     />
                   </div>
@@ -113,7 +109,7 @@ const Cart: React.FC<CartProps> = ({
                   <div className="flex-grow">
                     <div className="flex items-start justify-between mb-2">
                       <h3 className="text-xl font-semibold font-poppins text-bakery-purple">
-                        {item.name}
+                        {item.products.name}
                       </h3>
                       <button
                         onClick={() => onRemoveFromCart(item.id)}
@@ -125,7 +121,7 @@ const Cart: React.FC<CartProps> = ({
                     </div>
                     
                     <p className="text-bakery-blue-muted text-sm mb-4 line-clamp-2">
-                      {item.description}
+                      {item.products.description}
                     </p>
                     
                     <div className="flex items-center justify-between">
@@ -153,9 +149,9 @@ const Cart: React.FC<CartProps> = ({
                         <div className="text-2xl font-bold text-bakery-purple font-poppins">
                           ${(itemPrice * item.quantity).toFixed(2)}
                         </div>
-                        {item.discount && (
+                        {item.products.discount && (
                           <div className="text-sm text-bakery-blue-muted line-through">
-                            ${(item.price * item.quantity).toFixed(2)}
+                            ${(item.products.price * item.quantity).toFixed(2)}
                           </div>
                         )}
                         <div className="text-sm text-bakery-blue-muted">

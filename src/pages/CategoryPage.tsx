@@ -1,5 +1,6 @@
 import React from 'react';
-import ProductCard, { Product } from '@/components/ProductCard';
+import ProductCard from '@/components/ProductCard';
+import { Product } from '@/hooks/useProducts';
 
 interface CategoryPageProps {
   category: string;

@@ -2,16 +2,7 @@ import React from 'react';
 import { Plus, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-export interface Product {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-  category: string;
-  bestseller?: boolean;
-  discount?: number;
-}
+import { Product } from '@/hooks/useProducts';
 
 interface ProductCardProps {
   product: Product;
