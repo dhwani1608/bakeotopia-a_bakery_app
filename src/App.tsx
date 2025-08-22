@@ -14,20 +14,16 @@ import NotFound from "./pages/NotFound";
 import CategoryPage from "./pages/CategoryPage";
 import { useProducts } from "./hooks/useProducts";
 import { useCart } from "./hooks/useCart";
-
-
+import { useAuth } from "./hooks/useAuth";
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState('home');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   
-  // For now, we'll use a mock user ID since auth isn't implemented yet
-  // In a real app, this would come from the auth context
-  const mockUserId = 'mock-user-id';
-  
+  const { user, loading, signOut } = useAuth();
   const { data: products = [] } = useProducts();
-  const { cartItems, addToCart, updateQuantity, removeFromCart } = useCart(mockUserId);
+  const { cartItems, addToCart, updateQuantity, removeFromCart } = useCart(user?.id || '');
 
   const handleAddToCart = (product: any) => {
     addToCart({ productId: product.id });
@@ -46,6 +42,12 @@ const App = () => {
   };
 
   const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+
+  // Redirect to login if not authenticated (except for public pages)
+  const publicPages = ['home', 'about', 'contact', 'login', 'all', 'pastry', 'cake', 'brownie', 'muffin', 'cupcakes', 'healthy'];
+  if (!loading && !user && !publicPages.includes(currentPage)) {
+    setCurrentPage('login');
+  }
 
   const renderPage = () => {
     switch (currentPage) {
@@ -131,7 +133,7 @@ const App = () => {
           />
         );
       case 'login':
-        return <Login />;
+        return <Login onPageChange={setCurrentPage} />;
       default:
         return <NotFound />;
     }

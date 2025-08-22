@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { User, Mail, Lock, Eye, EyeOff, LogIn, UserPlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useAuth } from '@/hooks/useAuth';
+import { toast } from '@/hooks/use-toast';
 
-const Login: React.FC = () => {
+interface LoginProps {
+  onPageChange: (page: string) => void;
+}
+
+const Login = ({ onPageChange }: LoginProps) => {
+  const { user, signIn, signUp, loading } = useAuth();
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const [loginForm, setLoginForm] = useState({
     email: '',
@@ -19,6 +27,13 @@ const Login: React.FC = () => {
     password: '',
     confirmPassword: ''
   });
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (user && !loading) {
+      onPageChange('home');
+    }
+  }, [user, loading, onPageChange]);
 
   const handleLoginChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -36,44 +51,71 @@ const Login: React.FC = () => {
     }));
   };
 
-  const handleLogin = () => {
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
     if (!loginForm.email || !loginForm.password) {
-      alert('Please fill in all fields');
+      toast({
+        title: "Error",
+        description: "Please fill in all fields",
+        variant: "destructive",
+      });
       return;
     }
+
+    setIsSubmitting(true);
+    const { error } = await signIn(loginForm.email, loginForm.password);
     
-    if (!loginForm.email.includes('@')) {
-      alert('Please enter a valid email address');
-      return;
+    if (error) {
+      toast({
+        title: "Login Failed",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Success",
+        description: "Logged in successfully!",
+      });
     }
-    
-    alert('Welcome back! You have been successfully logged in.');
-    setLoginForm({ email: '', password: '' });
+    setIsSubmitting(false);
   };
 
-  const handleSignup = () => {
-    if (!signupForm.name || !signupForm.email || !signupForm.password || !signupForm.confirmPassword) {
-      alert('Please fill in all fields');
-      return;
-    }
-    
-    if (!signupForm.email.includes('@')) {
-      alert('Please enter a valid email address');
-      return;
-    }
-    
-    if (signupForm.password.length < 6) {
-      alert('Password must be at least 6 characters long');
-      return;
-    }
-    
+  const handleSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
     if (signupForm.password !== signupForm.confirmPassword) {
-      alert('Passwords do not match');
+      toast({
+        title: "Error",
+        description: "Passwords do not match!",
+        variant: "destructive",
+      });
       return;
     }
+
+    if (!signupForm.email || !signupForm.password || !signupForm.name) {
+      toast({
+        title: "Error",
+        description: "Please fill in all fields",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+    const { error } = await signUp(signupForm.email, signupForm.password, signupForm.name);
     
-    alert('Account created successfully! Welcome to Bakeotopia!');
-    setSignupForm({ name: '', email: '', password: '', confirmPassword: '' });
+    if (error) {
+      toast({
+        title: "Signup Failed",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Success",
+        description: "Account created successfully! Please check your email to verify your account.",
+      });
+    }
+    setIsSubmitting(false);
   };
 
   const benefits = [
@@ -246,13 +288,14 @@ const Login: React.FC = () => {
                       </button>
                     </div>
 
-                    <Button 
-                      onClick={handleLogin}
-                      className="w-full bg-bakery-purple hover:bg-bakery-purple-light text-white font-semibold py-4 button-bounce"
-                    >
-                      <LogIn className="w-5 h-5 mr-2" />
-                      Sign In
-                    </Button>
+                     <Button 
+                       onClick={handleLogin}
+                       className="w-full bg-bakery-purple hover:bg-bakery-purple-light text-white font-semibold py-4 button-bounce"
+                       disabled={isSubmitting}
+                     >
+                       <LogIn className="w-5 h-5 mr-2" />
+                       {isSubmitting ? 'Signing In...' : 'Sign In'}
+                     </Button>
                   </div>
                 ) : (
                   /* Signup Form */
@@ -358,13 +401,14 @@ const Login: React.FC = () => {
                       </label>
                     </div>
 
-                    <Button 
-                      onClick={handleSignup}
-                      className="w-full bg-bakery-purple hover:bg-bakery-purple-light text-white font-semibold py-4 button-bounce"
-                    >
-                      <UserPlus className="w-5 h-5 mr-2" />
-                      Create Account
-                    </Button>
+                     <Button 
+                       onClick={handleSignup}
+                       className="w-full bg-bakery-purple hover:bg-bakery-purple-light text-white font-semibold py-4 button-bounce"
+                       disabled={isSubmitting}
+                     >
+                       <UserPlus className="w-5 h-5 mr-2" />
+                       {isSubmitting ? 'Creating Account...' : 'Create Account'}
+                     </Button>
                   </div>
                 )}
 
