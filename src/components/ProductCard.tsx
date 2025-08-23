@@ -69,11 +69,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="text-2xl font-bold text-bakery-purple font-poppins">
-              ${discountedPrice.toFixed(2)}
+              Rs.{discountedPrice.toFixed(2)}
             </span>
             {product.discount && (
               <span className="text-lg text-bakery-blue-muted line-through">
-                ${product.price.toFixed(2)}
+                Rs.{product.price.toFixed(2)}
               </span>
             )}
           </div>

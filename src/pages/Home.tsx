@@ -244,14 +244,7 @@ const Home: React.FC<HomeProps> = ({
               variant="secondary"
               className="bg-white text-bakery-purple hover:bg-bakery-cream px-8 py-4 text-lg font-semibold"
             >
-              Visit Our Store
-            </Button>
-            <Button 
-              size="lg"
-              variant="outline"
-              className="border-white text-white hover:bg-white hover:text-bakery-purple px-8 py-4 text-lg font-semibold"
-            >
-              Call Us: (555) 123-CAKE
+              Call Us: +91 9714705616
             </Button>
           </div>
         </div>
