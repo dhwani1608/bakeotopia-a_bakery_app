@@ -3,6 +3,7 @@ import { Search, ShoppingCart, User, Menu, X, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useAuth } from '@/hooks/useAuth';
+import { useProfile } from '@/hooks/useProfile';
 
 interface HeaderProps {
   currentPage: string;
@@ -28,6 +29,7 @@ const Header: React.FC<HeaderProps> = ({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
   const { user, signOut } = useAuth();
+  const { data: profile } = useProfile();
 
   const handleSignOut = async () => {
     await signOut();
@@ -108,7 +110,7 @@ const Header: React.FC<HeaderProps> = ({
             {user ? (
               <div className="flex items-center space-x-2">
                 <span className="hidden sm:block text-sm text-bakery-blue-text">
-                  {user.email?.split('@')[0] || 'User'}
+                  {profile?.display_name || user.email?.split('@')[0] || 'User'}
                 </span>
                 <Button
                   variant="ghost"
@@ -190,7 +192,7 @@ const Header: React.FC<HeaderProps> = ({
                   }}
                   className="sm:hidden text-left px-3 py-2 rounded-lg text-bakery-blue-text hover:bg-bakery-blue-light/30"
                 >
-                  Sign Out ({user.email?.split('@')[0] || 'User'})
+                  Sign Out ({profile?.display_name || user.email?.split('@')[0] || 'User'})
                 </button>
               ) : (
                 <button
