@@ -6,12 +6,18 @@ interface CategoryPageProps {
   category: string;
   products: Product[];
   onAddToCart: (product: Product) => void;
+  searchQuery: string;
 }
 
-const CategoryPage: React.FC<CategoryPageProps> = ({ category, products, onAddToCart }) => {
-  const filteredProducts = category === 'All' 
-    ? products 
-    : products.filter(product => product.category === category);
+const CategoryPage: React.FC<CategoryPageProps> = ({ category, products, onAddToCart, searchQuery }) => {
+  const filteredProducts = products.filter(product => {
+    const matchesCategory = category === 'All' || product.category === category;
+    const matchesSearch = searchQuery === '' || 
+      product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.category.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
 
   const categoryTitles: { [key: string]: string } = {
     'All': 'All Products',

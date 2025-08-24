@@ -67,6 +67,7 @@ const App = () => {
             category="All"
             products={products}
             onAddToCart={handleAddToCart}
+            searchQuery={searchQuery}
           />
         );
       case 'pastry':
@@ -75,6 +76,7 @@ const App = () => {
             category="Pastry"
             products={products}
             onAddToCart={handleAddToCart}
+            searchQuery={searchQuery}
           />
         );
       case 'cake':
@@ -83,6 +85,7 @@ const App = () => {
             category="Cake"
             products={products}
             onAddToCart={handleAddToCart}
+            searchQuery={searchQuery}
           />
         );
       case 'brownie':
@@ -91,6 +94,7 @@ const App = () => {
             category="Brownie"
             products={products}
             onAddToCart={handleAddToCart}
+            searchQuery={searchQuery}
           />
         );
       case 'muffin':
@@ -99,6 +103,7 @@ const App = () => {
             category="Muffin"
             products={products}
             onAddToCart={handleAddToCart}
+            searchQuery={searchQuery}
           />
         );
       case 'cupcakes':
@@ -107,6 +112,7 @@ const App = () => {
             category="Cupcakes"
             products={products}
             onAddToCart={handleAddToCart}
+            searchQuery={searchQuery}
           />
         );
       case 'healthy':
@@ -115,6 +121,7 @@ const App = () => {
             category="Healthy"
             products={products}
             onAddToCart={handleAddToCart}
+            searchQuery={searchQuery}
           />
         );
       case 'about':
