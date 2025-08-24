@@ -1,5 +1,5 @@
-import React from 'react';
-import { Minus, Plus, Trash2, ShoppingBag, ArrowRight, CreditCard } from 'lucide-react';
+import React, { useState } from 'react';
+import { Minus, Plus, Trash2, ShoppingBag, ArrowRight, CreditCard, MapPin, Phone, Truck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { CartItem } from '@/hooks/useCart';
 
@@ -16,6 +16,7 @@ const Cart: React.FC<CartProps> = ({
   onRemoveFromCart,
   onPageChange 
 }) => {
+  const [showDeliveryInfo, setShowDeliveryInfo] = useState(false);
   const calculateSubtotal = () => {
     return cartItems.reduce((total, item) => {
       const itemPrice = item.products.discount 
@@ -35,7 +36,7 @@ const Cart: React.FC<CartProps> = ({
       alert('Your cart is empty. Please add some items before checkout.');
       return;
     }
-    alert('Thank you for your order! Redirecting to secure checkout...');
+    setShowDeliveryInfo(true);
   };
 
   if (cartItems.length === 0) {
@@ -242,6 +243,94 @@ const Cart: React.FC<CartProps> = ({
           </div>
         </div>
       </div>
+
+      {/* Delivery Information Modal/Section */}
+      {showDeliveryInfo && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-3xl p-8 max-w-2xl w-full mx-4 max-h-[80vh] overflow-y-auto">
+            <div className="text-center mb-8">
+              <div className="text-4xl mb-4">🚚</div>
+              <h2 className="text-3xl font-bold font-poppins text-bakery-purple mb-4">
+                Delivery Information
+              </h2>
+            </div>
+
+            <div className="space-y-6">
+              {/* Delivery Areas */}
+              <div className="bg-bakery-cream rounded-2xl p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <MapPin className="w-6 h-6 text-bakery-purple" />
+                  <h3 className="text-xl font-semibold text-bakery-purple">Delivery Areas</h3>
+                </div>
+                <p className="text-bakery-blue-muted mb-3">
+                  We currently deliver to the following areas:
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <span className="bg-bakery-purple text-white px-4 py-2 rounded-full text-sm font-medium">
+                    Gandhinagar
+                  </span>
+                  <span className="bg-bakery-purple text-white px-4 py-2 rounded-full text-sm font-medium">
+                    Ahmedabad
+                  </span>
+                </div>
+              </div>
+
+              {/* Free Delivery Zone */}
+              <div className="bg-bakery-rose/30 rounded-2xl p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <Truck className="w-6 h-6 text-bakery-purple" />
+                  <h3 className="text-xl font-semibold text-bakery-purple">Free Delivery Zone</h3>
+                </div>
+                <p className="text-bakery-blue-muted mb-3">
+                  Enjoy FREE delivery in:
+                </p>
+                <div className="bg-green-100 border border-green-200 rounded-lg p-3">
+                  <span className="text-green-700 font-semibold">📍 Raysan, Gandhinagar</span>
+                </div>
+              </div>
+
+              {/* Order Confirmation */}
+              <div className="bg-bakery-vanilla rounded-2xl p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <Phone className="w-6 h-6 text-bakery-purple" />
+                  <h3 className="text-xl font-semibold text-bakery-purple">Order Confirmation</h3>
+                </div>
+                <p className="text-bakery-blue-muted mb-4">
+                  To confirm your order and arrange delivery, please call us at:
+                </p>
+                <div className="bg-bakery-purple text-white rounded-lg p-4 text-center">
+                  <a 
+                    href="tel:+919714705616" 
+                    className="text-2xl font-bold hover:underline"
+                  >
+                    +91 9714705616
+                  </a>
+                </div>
+                <p className="text-sm text-bakery-blue-muted mt-3 text-center">
+                  Our team will confirm your order details and delivery address
+                </p>
+              </div>
+            </div>
+
+            <div className="flex gap-4 mt-8">
+              <Button 
+                onClick={() => setShowDeliveryInfo(false)}
+                variant="outline"
+                className="flex-1 border-bakery-purple text-bakery-purple hover:bg-bakery-purple hover:text-white"
+              >
+                Back to Cart
+              </Button>
+              <Button 
+                onClick={() => window.open('tel:+919714705616')}
+                className="flex-1 bg-bakery-purple hover:bg-bakery-purple-light text-white font-semibold"
+              >
+                <Phone className="w-5 h-5 mr-2" />
+                Call Now
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Delivery Information */}
       <div className="mt-16 bg-bakery-vanilla rounded-2xl p-8 fade-in-up">
