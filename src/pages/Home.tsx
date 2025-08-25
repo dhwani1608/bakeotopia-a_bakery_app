@@ -72,35 +72,35 @@ const Home: React.FC<HomeProps> = ({
           <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent"></div>
         </div>
         
-        <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-6">
+        <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4 sm:px-6">
           <div className="floating-animation">
-            <h1 className="text-5xl md:text-7xl font-bold font-poppins mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold font-poppins mb-4 sm:mb-6 leading-tight">
               Welcome to <span className="text-gradient">Bakeotopia</span>
             </h1>
-            <p className="text-xl md:text-2xl mb-4 font-medium">
+            <p className="text-lg sm:text-xl md:text-2xl mb-3 sm:mb-4 font-medium">
               Home of Quality Baking
             </p>
-            <p className="text-lg mb-8 opacity-90 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg mb-6 sm:mb-8 opacity-90 max-w-2xl mx-auto px-2">
               Discover our artisanal collection of cakes, pastries, and treats crafted with love, 
               premium ingredients, and generations of baking expertise.
             </p>
           </div>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4 sm:px-0">
             <Button 
               size="lg"
-              className="bg-bakery-purple hover:bg-bakery-purple-light text-white px-8 py-4 text-lg font-semibold button-bounce"
+              className="bg-bakery-purple hover:bg-bakery-purple-light text-white px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold button-bounce w-full sm:w-auto min-h-[48px]"
               onClick={() => document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Explore Our Menu
-              <ArrowRight className="ml-2 w-5 h-5" />
+              <ArrowRight className="ml-2 w-4 sm:w-5 h-4 sm:h-5" />
             </Button>
             <Button 
               variant="outline"
               size="lg"
-              className="border-white text-white hover:bg-white hover:text-bakery-purple px-8 py-4 text-lg font-semibold"
+              className="border-white text-white hover:bg-white hover:text-bakery-purple px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold w-full sm:w-auto min-h-[48px]"
             >
-              <Gift className="mr-2 w-5 h-5" />
+              <Gift className="mr-2 w-4 sm:w-5 h-4 sm:h-5" />
               Special Offers
             </Button>
           </div>
@@ -116,11 +116,11 @@ const Home: React.FC<HomeProps> = ({
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {categories.map((category, index) => (
             <div 
               key={category.name}
-              className={`product-card cursor-pointer fade-in-up delay-${(index + 1) * 100}`}
+              className={`product-card cursor-pointer fade-in-up delay-${(index + 1) * 100} active:scale-95 transition-transform`}
               onClick={() => onCategoryChange(category.name)}
             >
               <div className="relative overflow-hidden rounded-2xl aspect-[4/3] mb-4">
@@ -130,11 +130,11 @@ const Home: React.FC<HomeProps> = ({
                   className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                <div className="absolute bottom-4 left-4 text-white">
-                  <h3 className="text-2xl font-bold font-poppins">{category.name}</h3>
+                <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 text-white">
+                  <h3 className="text-xl sm:text-2xl font-bold font-poppins">{category.name}</h3>
                 </div>
               </div>
-              <p className="text-bakery-blue-muted text-center">{category.description}</p>
+              <p className="text-bakery-blue-muted text-center text-sm sm:text-base px-2">{category.description}</p>
             </div>
           ))}
         </div>
@@ -154,7 +154,7 @@ const Home: React.FC<HomeProps> = ({
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             {bestsellers.slice(0, 4).map((product, index) => (
               <div key={product.id} className={`fade-in-up delay-${(index + 1) * 100}`}>
                 <ProductCard product={product} onAddToCart={onAddToCart} />
@@ -177,21 +177,21 @@ const Home: React.FC<HomeProps> = ({
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
           {festivalOffers.map((offer, index) => (
             <div 
               key={offer.title}
-              className={`bg-gradient-to-br ${offer.color} rounded-3xl p-8 text-center hover-lift fade-in-up delay-${(index + 1) * 200}`}
+              className={`bg-gradient-to-br ${offer.color} rounded-3xl p-6 sm:p-8 text-center hover-lift fade-in-up delay-${(index + 1) * 200}`}
             >
-              <div className="bg-white/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <Heart className="w-8 h-8 text-white" />
+              <div className="bg-white/20 rounded-full w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center mx-auto mb-4">
+                <Heart className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold font-poppins text-white mb-2">{offer.title}</h3>
-              <p className="text-white/90 mb-4">{offer.description}</p>
-              <div className="text-3xl font-bold text-white mb-4">{offer.discount}</div>
+              <h3 className="text-xl sm:text-2xl font-bold font-poppins text-white mb-2">{offer.title}</h3>
+              <p className="text-white/90 mb-4 text-sm sm:text-base">{offer.description}</p>
+              <div className="text-2xl sm:text-3xl font-bold text-white mb-4">{offer.discount}</div>
               <Button 
                 variant="secondary"
-                className="bg-white text-bakery-purple hover:bg-white/90 font-semibold button-bounce"
+                className="bg-white text-bakery-purple hover:bg-white/90 font-semibold button-bounce min-h-[44px] px-6"
                 onClick={() => document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 Shop Now
@@ -220,7 +220,7 @@ const Home: React.FC<HomeProps> = ({
             <p className="text-bakery-blue-muted">Try adjusting your search or browse different categories</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
             {filteredProducts.map((product, index) => (
               <div key={product.id} className={`fade-in-up delay-${(index % 4 + 1) * 100}`}>
                 <ProductCard product={product} onAddToCart={onAddToCart} />

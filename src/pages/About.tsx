@@ -144,7 +144,25 @@ const About: React.FC = () => {
           </div>
           
           <div className="max-w-4xl mx-auto">
-            <div className="relative">
+            {/* Mobile Timeline */}
+            <div className="block sm:hidden space-y-6">
+              {timeline.map((item, index) => (
+                <div 
+                  key={item.year}
+                  className={`bg-white rounded-2xl p-6 shadow-card fade-in-up delay-${(index + 1) * 100}`}
+                >
+                  <div className="text-2xl font-bold font-poppins text-bakery-purple mb-2">
+                    {item.year}
+                  </div>
+                  <p className="text-bakery-blue-muted leading-relaxed">
+                    {item.event}
+                  </p>
+                </div>
+              ))}
+            </div>
+            
+            {/* Desktop Timeline */}
+            <div className="hidden sm:block relative">
               <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-bakery-purple-light"></div>
               
               {timeline.map((item, index) => (

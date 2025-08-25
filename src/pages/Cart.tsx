@@ -83,9 +83,9 @@ const Cart: React.FC<CartProps> = ({
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-12">
         {/* Cart Items */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-2 space-y-4 sm:space-y-6">
           {cartItems.map((item, index) => {
             const itemPrice = item.products.discount 
               ? item.products.price * (1 - item.products.discount / 100)
@@ -94,60 +94,60 @@ const Cart: React.FC<CartProps> = ({
             return (
               <div 
                 key={item.id}
-                className={`bg-bakery-cream rounded-2xl p-6 hover-lift fade-in-up delay-${(index + 1) * 100}`}
+                className={`bg-bakery-cream rounded-2xl p-4 sm:p-6 hover-lift fade-in-up delay-${(index + 1) * 100}`}
               >
-                <div className="flex items-center space-x-6">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-6">
                   {/* Product Image */}
-                  <div className="flex-shrink-0">
+                  <div className="flex-shrink-0 mx-auto sm:mx-0">
                     <img
                       src={item.products.image || ''}
                       alt={item.products.name}
-                      className="w-24 h-24 object-cover rounded-xl"
+                      className="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-xl"
                     />
                   </div>
                   
                   {/* Product Details */}
-                  <div className="flex-grow">
+                  <div className="flex-grow w-full">
                     <div className="flex items-start justify-between mb-2">
-                      <h3 className="text-xl font-semibold font-poppins text-bakery-purple">
+                      <h3 className="text-lg sm:text-xl font-semibold font-poppins text-bakery-purple pr-2">
                         {item.products.name}
                       </h3>
                       <button
                         onClick={() => onRemoveFromCart(item.id)}
-                        className="text-bakery-blue-muted hover:text-red-500 transition-colors p-2"
+                        className="text-bakery-blue-muted hover:text-red-500 transition-colors p-2 min-w-[44px] min-h-[44px] flex items-center justify-center active:scale-95"
                         aria-label="Remove item"
                       >
                         <Trash2 className="w-5 h-5" />
                       </button>
                     </div>
                     
-                    <p className="text-bakery-blue-muted text-sm mb-4 line-clamp-2">
+                    <p className="text-bakery-blue-muted text-xs sm:text-sm mb-4 line-clamp-2">
                       {item.products.description}
                     </p>
                     
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                       {/* Quantity Controls */}
-                      <div className="flex items-center space-x-3">
+                      <div className="flex items-center justify-center sm:justify-start space-x-3">
                         <button
                           onClick={() => onUpdateQuantity(item.id, Math.max(0, item.quantity - 1))}
-                          className="w-8 h-8 bg-bakery-blue-light rounded-full flex items-center justify-center hover:bg-bakery-purple-light hover:text-white transition-colors"
+                          className="w-10 h-10 sm:w-8 sm:h-8 bg-bakery-blue-light rounded-full flex items-center justify-center hover:bg-bakery-purple-light hover:text-white transition-colors active:scale-95"
                         >
                           <Minus className="w-4 h-4" />
                         </button>
-                        <span className="w-8 text-center font-semibold text-bakery-purple">
+                        <span className="w-8 text-center font-semibold text-bakery-purple text-lg sm:text-base">
                           {item.quantity}
                         </span>
                         <button
                           onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
-                          className="w-8 h-8 bg-bakery-blue-light rounded-full flex items-center justify-center hover:bg-bakery-purple-light hover:text-white transition-colors"
+                          className="w-10 h-10 sm:w-8 sm:h-8 bg-bakery-blue-light rounded-full flex items-center justify-center hover:bg-bakery-purple-light hover:text-white transition-colors active:scale-95"
                         >
                           <Plus className="w-4 h-4" />
                         </button>
                       </div>
                       
                       {/* Price */}
-                      <div className="text-right">
-                        <div className="text-2xl font-bold text-bakery-purple font-poppins">
+                      <div className="text-center sm:text-right">
+                        <div className="text-xl sm:text-2xl font-bold text-bakery-purple font-poppins">
                           ${(itemPrice * item.quantity).toFixed(2)}
                         </div>
                         {item.products.discount && (
@@ -155,7 +155,7 @@ const Cart: React.FC<CartProps> = ({
                             ${(item.products.price * item.quantity).toFixed(2)}
                           </div>
                         )}
-                        <div className="text-sm text-bakery-blue-muted">
+                        <div className="text-xs sm:text-sm text-bakery-blue-muted">
                           ${itemPrice.toFixed(2)} each
                         </div>
                       </div>
@@ -169,7 +169,7 @@ const Cart: React.FC<CartProps> = ({
 
         {/* Order Summary */}
         <div className="lg:col-span-1">
-          <div className="bg-bakery-cream rounded-2xl p-8 sticky top-24 fade-in-up delay-300">
+          <div className="bg-bakery-cream rounded-2xl p-6 sm:p-8 sticky top-4 sm:top-24 fade-in-up delay-300">
             <h2 className="text-2xl font-bold font-poppins text-bakery-purple mb-6">
               Order Summary
             </h2>

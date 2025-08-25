@@ -121,7 +121,7 @@ const Contact: React.FC = () => {
             </div>
             
             <div className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-bakery-purple mb-2">
                     Name *
@@ -132,7 +132,7 @@ const Contact: React.FC = () => {
                     value={formData.name}
                     onChange={handleInputChange}
                     placeholder="Your full name"
-                    className="bg-bakery-green-soft border-bakery-blue-light focus:border-bakery-purple"
+                    className="bg-bakery-green-soft border-bakery-blue-light focus:border-bakery-purple min-h-[44px]"
                   />
                 </div>
                 <div>
@@ -145,7 +145,7 @@ const Contact: React.FC = () => {
                     value={formData.phone}
                     onChange={handleInputChange}
                     placeholder="Your phone number"
-                    className="bg-bakery-green-soft border-bakery-blue-light focus:border-bakery-purple"
+                    className="bg-bakery-green-soft border-bakery-blue-light focus:border-bakery-purple min-h-[44px]"
                   />
                 </div>
               </div>
@@ -180,7 +180,7 @@ const Contact: React.FC = () => {
               
               <Button 
                 onClick={handleSubmit}
-                className="w-full bg-bakery-purple hover:bg-bakery-purple-light text-white font-semibold py-4 button-bounce"
+                className="w-full bg-bakery-purple hover:bg-bakery-purple-light text-white font-semibold py-4 button-bounce min-h-[48px] active:scale-95"
               >
                 <Send className="w-5 h-5 mr-2" />
                 Send Message
