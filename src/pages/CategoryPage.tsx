@@ -42,14 +42,17 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ category, products, onAddTo
         </div>
 
         {filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-            {filteredProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                onAddToCart={onAddToCart}
-              />
-            ))}
+          <div className="overflow-x-auto pb-4">
+            <div className="flex gap-4 w-max md:grid md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 md:gap-6 md:w-full">
+              {filteredProducts.map((product) => (
+                <div key={product.id} className="w-32 flex-shrink-0 md:w-auto md:flex-shrink">
+                  <ProductCard
+                    product={product}
+                    onAddToCart={onAddToCart}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         ) : (
           <div className="text-center py-16">
