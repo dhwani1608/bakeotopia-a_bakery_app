@@ -94,68 +94,68 @@ const Cart: React.FC<CartProps> = ({
             return (
               <div 
                 key={item.id}
-                className={`bg-bakery-cream rounded-2xl p-4 sm:p-6 hover-lift fade-in-up delay-${(index + 1) * 100}`}
+                className={`bg-bakery-cream rounded-2xl p-3 sm:p-6 hover-lift fade-in-up delay-${(index + 1) * 100}`}
               >
-                <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <div className="flex items-center space-x-3 sm:space-x-6">
                   {/* Product Image */}
-                  <div className="flex-shrink-0 mx-auto sm:mx-0">
+                  <div className="flex-shrink-0">
                     <img
                       src={item.products.image || ''}
                       alt={item.products.name}
-                      className="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-xl"
+                      className="w-16 h-16 sm:w-24 sm:h-24 object-cover rounded-xl"
                     />
                   </div>
                   
                   {/* Product Details */}
-                  <div className="flex-grow w-full">
-                    <div className="flex items-start justify-between mb-2">
-                      <h3 className="text-lg sm:text-xl font-semibold font-poppins text-bakery-purple pr-2">
+                  <div className="flex-grow">
+                    <div className="flex items-start justify-between mb-1">
+                      <h3 className="text-sm sm:text-xl font-semibold font-poppins text-bakery-purple pr-2 line-clamp-1">
                         {item.products.name}
                       </h3>
                       <button
                         onClick={() => onRemoveFromCart(item.id)}
-                        className="text-bakery-blue-muted hover:text-red-500 transition-colors p-2 min-w-[44px] min-h-[44px] flex items-center justify-center active:scale-95"
+                        className="text-bakery-blue-muted hover:text-red-500 transition-colors p-1 sm:p-2 min-w-[32px] min-h-[32px] sm:min-w-[44px] sm:min-h-[44px] flex items-center justify-center active:scale-95"
                         aria-label="Remove item"
                       >
-                        <Trash2 className="w-5 h-5" />
+                        <Trash2 className="w-4 h-4 sm:w-5 sm:h-5" />
                       </button>
                     </div>
                     
-                    <p className="text-bakery-blue-muted text-xs sm:text-sm mb-4 line-clamp-2">
+                    <p className="text-bakery-blue-muted text-xs sm:text-sm mb-2 sm:mb-4 line-clamp-1 sm:line-clamp-2">
                       {item.products.description}
                     </p>
                     
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div className="flex items-center justify-between gap-2">
                       {/* Quantity Controls */}
-                      <div className="flex items-center justify-center sm:justify-start space-x-3">
+                      <div className="flex items-center space-x-2 sm:space-x-3">
                         <button
                           onClick={() => onUpdateQuantity(item.id, Math.max(0, item.quantity - 1))}
-                          className="w-10 h-10 sm:w-8 sm:h-8 bg-bakery-blue-light rounded-full flex items-center justify-center hover:bg-bakery-purple-light hover:text-white transition-colors active:scale-95"
+                          className="w-8 h-8 sm:w-8 sm:h-8 bg-bakery-blue-light rounded-full flex items-center justify-center hover:bg-bakery-purple-light hover:text-white transition-colors active:scale-95"
                         >
-                          <Minus className="w-4 h-4" />
+                          <Minus className="w-3 h-3 sm:w-4 sm:h-4" />
                         </button>
-                        <span className="w-8 text-center font-semibold text-bakery-purple text-lg sm:text-base">
+                        <span className="w-6 text-center font-semibold text-bakery-purple text-sm sm:text-base">
                           {item.quantity}
                         </span>
                         <button
                           onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
-                          className="w-10 h-10 sm:w-8 sm:h-8 bg-bakery-blue-light rounded-full flex items-center justify-center hover:bg-bakery-purple-light hover:text-white transition-colors active:scale-95"
+                          className="w-8 h-8 sm:w-8 sm:h-8 bg-bakery-blue-light rounded-full flex items-center justify-center hover:bg-bakery-purple-light hover:text-white transition-colors active:scale-95"
                         >
-                          <Plus className="w-4 h-4" />
+                          <Plus className="w-3 h-3 sm:w-4 sm:h-4" />
                         </button>
                       </div>
                       
                       {/* Price */}
-                      <div className="text-center sm:text-right">
-                        <div className="text-xl sm:text-2xl font-bold text-bakery-purple font-poppins">
+                      <div className="text-right">
+                        <div className="text-lg sm:text-2xl font-bold text-bakery-purple font-poppins">
                           ${(itemPrice * item.quantity).toFixed(2)}
                         </div>
                         {item.products.discount && (
-                          <div className="text-sm text-bakery-blue-muted line-through">
+                          <div className="text-xs sm:text-sm text-bakery-blue-muted line-through">
                             ${(item.products.price * item.quantity).toFixed(2)}
                           </div>
                         )}
-                        <div className="text-xs sm:text-sm text-bakery-blue-muted">
+                        <div className="text-xs text-bakery-blue-muted">
                           ${itemPrice.toFixed(2)} each
                         </div>
                       </div>
