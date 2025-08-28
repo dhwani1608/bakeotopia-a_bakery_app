@@ -51,7 +51,7 @@ const Header: React.FC<HeaderProps> = ({
           {/* Logo */}
           <div className="flex items-center space-x-2">
             <div className="text-2xl font-bold font-poppins text-gradient">
-              Bakeotopia
+              BakeOTopia
             </div>
             <div className="hidden sm:block text-sm text-bakery-blue-muted font-medium">
               Home of quality baking

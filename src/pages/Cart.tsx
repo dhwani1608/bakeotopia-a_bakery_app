@@ -28,8 +28,7 @@ const Cart: React.FC<CartProps> = ({
 
   const subtotal = calculateSubtotal();
   const deliveryFee = subtotal > 50 ? 0 : 3.99;
-  const tax = subtotal * 0.08; // 8% tax
-  const total = subtotal + deliveryFee + tax;
+  const total = subtotal + deliveryFee
 
   const handleCheckout = () => {
     if (cartItems.length === 0) {
@@ -63,9 +62,6 @@ const Cart: React.FC<CartProps> = ({
               Explore Our Menu
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
-            <p className="text-sm text-bakery-blue-muted">
-              Free delivery on orders over $50!
-            </p>
           </div>
         </div>
       </main>
@@ -148,15 +144,15 @@ const Cart: React.FC<CartProps> = ({
                       {/* Price */}
                       <div className="text-right">
                         <div className="text-lg sm:text-2xl font-bold text-bakery-purple font-poppins">
-                          ${(itemPrice * item.quantity).toFixed(2)}
+                          Rs.{(itemPrice * item.quantity).toFixed(2)}
                         </div>
                         {item.products.discount && (
                           <div className="text-xs sm:text-sm text-bakery-blue-muted line-through">
-                            ${(item.products.price * item.quantity).toFixed(2)}
+                            Rs.{(item.products.price * item.quantity).toFixed(2)}
                           </div>
                         )}
                         <div className="text-xs text-bakery-blue-muted">
-                          ${itemPrice.toFixed(2)} each
+                          Rs.{itemPrice.toFixed(2)} each
                         </div>
                       </div>
                     </div>
@@ -178,21 +174,14 @@ const Cart: React.FC<CartProps> = ({
               <div className="flex justify-between">
                 <span className="text-bakery-blue-muted">Subtotal</span>
                 <span className="font-semibold text-bakery-purple">
-                  ${subtotal.toFixed(2)}
+                  Rs.{subtotal.toFixed(2)}
                 </span>
               </div>
               
               <div className="flex justify-between">
                 <span className="text-bakery-blue-muted">Delivery Fee</span>
                 <span className="font-semibold text-bakery-purple">
-                  {deliveryFee === 0 ? 'FREE' : `$${deliveryFee.toFixed(2)}`}
-                </span>
-              </div>
-              
-              <div className="flex justify-between">
-                <span className="text-bakery-blue-muted">Tax</span>
-                <span className="font-semibold text-bakery-purple">
-                  ${tax.toFixed(2)}
+                  {deliveryFee === 0 ? 'FREE' : `Rs.${deliveryFee.toFixed(2)}`}
                 </span>
               </div>
               
@@ -200,7 +189,7 @@ const Cart: React.FC<CartProps> = ({
                 <div className="flex justify-between">
                   <span className="text-xl font-bold text-bakery-purple">Total</span>
                   <span className="text-xl font-bold text-bakery-purple">
-                    ${total.toFixed(2)}
+                    Rs.{total.toFixed(2)}
                   </span>
                 </div>
               </div>
@@ -209,7 +198,7 @@ const Cart: React.FC<CartProps> = ({
             {deliveryFee > 0 && (
               <div className="bg-bakery-rose/30 rounded-lg p-4 mb-6">
                 <p className="text-sm text-bakery-purple font-medium">
-                  💡 Add ${(50 - subtotal).toFixed(2)} more for free delivery!
+                  💡 Add Rs.{(50 - subtotal).toFixed(2)} more for free delivery!
                 </p>
               </div>
             )}
@@ -231,10 +220,6 @@ const Cart: React.FC<CartProps> = ({
             </Button>
             
             <div className="mt-6 space-y-3 text-sm text-bakery-blue-muted">
-              <div className="flex items-center space-x-2">
-                <ShoppingBag className="w-4 h-4" />
-                <span>Same-day delivery available</span>
-              </div>
               <div className="flex items-center space-x-2">
                 <CreditCard className="w-4 h-4" />
                 <span>Secure payment processing</span>

@@ -1,66 +1,82 @@
-import React, { useState } from 'react';
-import { MapPin, Phone, Mail, Clock, Truck, Calendar, Send } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
+import React, { useState } from "react";
+import {
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
+  Truck,
+  Calendar,
+  Send,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { link } from "fs";
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: ''
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
   });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = () => {
     if (!formData.name || !formData.email || !formData.message) {
-      alert('Please fill in all required fields');
+      alert("Please fill in all required fields");
       return;
     }
-    
-    alert('Thank you for your message! We will get back to you within 24 hours.');
-    setFormData({ name: '', email: '', phone: '', message: '' });
+
+    alert(
+      "Thank you for your message! We will get back to you within 24 hours."
+    );
+    setFormData({ name: "", email: "", phone: "", message: "" });
   };
 
   const contactInfo = [
     {
       icon: MapPin,
-      title: 'Visit Our Bakery',
-      details: ['123 Baker Street', 'Sweet Valley, SV 12345'],
-      action: 'Get Directions'
+      title: "Our Home Bakery",
+      details: ["102 Tusli", "Raysan, Gandhinagar"],
+      action: "Get Directions",
+      link: "https://maps.app.goo.gl/ZewwEeihMHkZsWzCA",
     },
     {
       icon: Phone,
-      title: 'Call Us',
-      details: ['(555) 123-CAKE', 'Monday - Sunday: 7 AM - 8 PM'],
-      action: 'Call Now'
+      title: "Call Us",
+      details: ["+91 9714705616", "Monday - Sunday: 7 AM - 8 PM"],
+      action: "Call Now",
+      link: "tel:+919714705616",
     },
     {
       icon: Mail,
-      title: 'Email Us',
-      details: ['hello@bakeotopia.com', 'orders@bakeotopia.com'],
-      action: 'Send Email'
-    }
+      title: "Follow Us On Instagram",
+      details: ["We Need Your Support", "Just One Click Away"],
+      action: "Follow",
+      link: "https://www.instagram.com/bakeotopia_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    },
   ];
 
   const deliveryAreas = [
-    { area: 'Downtown District', time: '30-45 minutes', fee: 'Free' },
-    { area: 'Suburban Areas', time: '45-60 minutes', fee: '$3.99' },
-    { area: 'Extended Areas', time: '60-90 minutes', fee: '$5.99' }
+    { area: "Raysan", time: "30-45 minutes", fee: "Free" },
+    { area: "Gandhinagar", time: "45-60 minutes", fee: "Depends On Distance" },
+    { area: "Ahmedabad", time: "45-60 minutes", fee: "Depends On Distance" },
   ];
 
   const businessHours = [
-    { day: 'Monday - Friday', hours: '7:00 AM - 8:00 PM' },
-    { day: 'Saturday', hours: '7:00 AM - 9:00 PM' },
-    { day: 'Sunday', hours: '8:00 AM - 6:00 PM' }
+    { day: "Monday - Friday", hours: "7:00 AM - 8:00 PM" },
+    { day: "Saturday", hours: "7:00 AM - 9:00 PM" },
+    { day: "Sunday", hours: "8:00 AM - 6:00 PM" },
   ];
 
   return (
@@ -69,8 +85,9 @@ const Contact: React.FC = () => {
       <section className="container mx-auto px-4 text-center">
         <h1 className="section-title fade-in-up">Get in Touch</h1>
         <p className="text-xl text-bakery-blue-muted max-w-2xl mx-auto fade-in-up delay-200">
-          We'd love to hear from you! Whether you have questions about our products, need a custom order, 
-          or just want to say hello, we're here to help.
+          We'd love to hear from you! Whether you have questions about our
+          products, need a custom order, or just want to say hello, we're here
+          to help.
         </p>
       </section>
 
@@ -78,9 +95,11 @@ const Contact: React.FC = () => {
       <section className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {contactInfo.map((info, index) => (
-            <div 
+            <div
               key={info.title}
-              className={`bg-bakery-cream rounded-3xl p-8 text-center hover-lift fade-in-up delay-${(index + 1) * 100}`}
+              className={`bg-bakery-cream rounded-3xl p-8 text-center hover-lift fade-in-up delay-${
+                (index + 1) * 100
+              }`}
             >
               <div className="w-16 h-16 bg-bakery-purple-light/20 rounded-full flex items-center justify-center mx-auto mb-6">
                 <info.icon className="w-8 h-8 text-bakery-purple" />
@@ -95,11 +114,13 @@ const Contact: React.FC = () => {
                   </p>
                 ))}
               </div>
-              <Button 
+              <Button
                 variant="outline"
                 className="border-bakery-purple text-bakery-purple hover:bg-bakery-purple hover:text-white"
               >
-                {info.action}
+                <a href={info.link} target="_blank" rel="noopener noreferrer">
+                  {info.action}
+                </a>
               </Button>
             </div>
           ))}
@@ -116,10 +137,11 @@ const Contact: React.FC = () => {
                 Send Us a Message
               </h2>
               <p className="text-bakery-blue-muted">
-                Fill out the form below and we'll get back to you as soon as possible.
+                Fill out the form below and we'll get back to you as soon as
+                possible.
               </p>
             </div>
-            
+
             <div className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
@@ -149,7 +171,7 @@ const Contact: React.FC = () => {
                   />
                 </div>
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-bakery-purple mb-2">
                   Email *
@@ -163,7 +185,7 @@ const Contact: React.FC = () => {
                   className="bg-bakery-green-soft border-bakery-blue-light focus:border-bakery-purple"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-bakery-purple mb-2">
                   Message *
@@ -177,8 +199,8 @@ const Contact: React.FC = () => {
                   className="bg-bakery-green-soft border-bakery-blue-light focus:border-bakery-purple"
                 />
               </div>
-              
-              <Button 
+
+              <Button
                 onClick={handleSubmit}
                 className="w-full bg-bakery-purple hover:bg-bakery-purple-light text-white font-semibold py-4 button-bounce min-h-[48px] active:scale-95"
               >
@@ -194,20 +216,21 @@ const Contact: React.FC = () => {
               <h2 className="text-3xl font-bold font-poppins text-bakery-purple mb-4">
                 Find Us
               </h2>
-              <p className="text-bakery-blue-muted mb-6">
-                Located in the heart of Sweet Valley, our bakery is easily accessible and offers ample parking.
-              </p>
             </div>
-            
+
             {/* Map Placeholder */}
-            <div className="bg-bakery-blue-light rounded-2xl h-64 flex items-center justify-center">
-              <div className="text-center">
-                <MapPin className="w-12 h-12 text-bakery-purple mx-auto mb-4" />
-                <p className="text-bakery-blue-muted">Interactive Map</p>
-                <p className="text-sm text-bakery-blue-muted">123 Baker Street, Sweet Valley</p>
-              </div>
+            <div className="rounded-2xl overflow-hidden h-64">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3668.3342870201486!2d72.66317077531782!3d23.15799637907911!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e8167219be38b%3A0xba6fb4bc495c8bbf!2sTULSI%2C%20GIDM%20Staff%20Quarters!5e0!3m2!1sen!2sin!4v1756293175131!5m2!1sen!2sin"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
             </div>
-            
+
             {/* Business Hours */}
             <div className="bg-bakery-vanilla rounded-2xl p-6">
               <div className="flex items-center mb-4">
@@ -219,8 +242,12 @@ const Contact: React.FC = () => {
               <div className="space-y-2">
                 {businessHours.map((schedule, index) => (
                   <div key={index} className="flex justify-between">
-                    <span className="text-bakery-blue-muted">{schedule.day}</span>
-                    <span className="text-bakery-purple font-medium">{schedule.hours}</span>
+                    <span className="text-bakery-blue-muted">
+                      {schedule.day}
+                    </span>
+                    <span className="text-bakery-purple font-medium">
+                      {schedule.hours}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -240,16 +267,19 @@ const Contact: React.FC = () => {
               </h2>
             </div>
             <p className="text-xl text-white/90 max-w-2xl mx-auto">
-              We deliver fresh baked goods right to your door! Check out our delivery areas and times.
+              We deliver fresh baked goods right to your door! Check out our
+              delivery areas and times.
             </p>
           </div>
-          
+
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
               {deliveryAreas.map((area, index) => (
-                <div 
+                <div
                   key={area.area}
-                  className={`bg-white/10 backdrop-blur-md rounded-2xl p-6 text-center hover-lift fade-in-up delay-${(index + 1) * 200}`}
+                  className={`bg-white/10 backdrop-blur-md rounded-2xl p-6 text-center hover-lift fade-in-up delay-${
+                    (index + 1) * 200
+                  }`}
                 >
                   <h3 className="text-xl font-semibold font-poppins text-white mb-3">
                     {area.area}
@@ -265,21 +295,22 @@ const Contact: React.FC = () => {
                 </div>
               ))}
             </div>
-            
+
             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 text-center">
               <Calendar className="w-12 h-12 text-white mx-auto mb-4" />
               <h3 className="text-2xl font-bold font-poppins text-white mb-4">
                 Special Orders & Events
               </h3>
               <p className="text-white/90 mb-6 max-w-2xl mx-auto">
-                Planning a special event? We offer custom cakes, bulk orders, and catering services. 
-                Contact us at least 48 hours in advance for custom orders.
+                Planning a special event? We offer custom cakes, bulk orders,
+                and catering services. Contact us at least 48 hours in advance
+                for custom orders.
               </p>
-              <Button 
+              <Button
                 variant="secondary"
                 className="bg-white text-bakery-purple hover:bg-bakery-cream font-semibold"
               >
-                Request Custom Order
+                <a href="tel:+919714705616">Request Custom Order</a>
               </Button>
             </div>
           </div>
@@ -291,29 +322,36 @@ const Contact: React.FC = () => {
         <div className="text-center mb-12">
           <h2 className="section-title">Frequently Asked Questions</h2>
         </div>
-        
+
         <div className="max-w-3xl mx-auto space-y-6">
           {[
             {
-              question: 'Do you offer gluten-free options?',
-              answer: 'Yes! We have a dedicated gluten-free section with cakes, cookies, and pastries made in a separate area to prevent cross-contamination.'
+              question: "Do you offer gluten-free options?",
+              answer:
+                "Yes! We have a dedicated gluten-free section with cakes, cookies, and pastries made in a separate area to prevent cross-contamination.",
             },
             {
-              question: 'How far in advance should I place a custom cake order?',
-              answer: 'We recommend placing custom cake orders at least 48-72 hours in advance, especially for complex designs or during busy seasons.'
+              question:
+                "How far in advance should I place a custom cake order?",
+              answer:
+                "We recommend placing custom cake orders at least 24-48 hours in advance, especially for complex designs or during busy seasons.",
             },
             {
-              question: 'Do you deliver on weekends?',
-              answer: 'Yes, we offer delivery service 7 days a week during our business hours. Weekend delivery may have slightly longer wait times.'
+              question: "Do you deliver on weekends?",
+              answer:
+                "Yes, we offer delivery service 7 days a week during our business hours. Weekend delivery may have slightly longer wait times.",
             },
             {
-              question: 'Can I modify or cancel my order?',
-              answer: 'Orders can be modified or cancelled up to 24 hours before the scheduled pickup or delivery time. Please call us as soon as possible.'
-            }
+              question: "Can I modify or cancel my order?",
+              answer:
+                "Orders can be modified or cancelled up to 24 hours before the scheduled pickup or delivery time. Please call us as soon as possible.",
+            },
           ].map((faq, index) => (
-            <div 
+            <div
               key={index}
-              className={`bg-bakery-cream rounded-2xl p-6 fade-in-up delay-${(index + 1) * 100}`}
+              className={`bg-bakery-cream rounded-2xl p-6 fade-in-up delay-${
+                (index + 1) * 100
+              }`}
             >
               <h3 className="text-lg font-semibold font-poppins text-bakery-purple mb-3">
                 {faq.question}
