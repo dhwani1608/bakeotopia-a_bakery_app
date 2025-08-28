@@ -10,11 +10,13 @@ interface LoginProps {
 }
 
 const Login = ({ onPageChange }: LoginProps) => {
-  const { user, signIn, signUp, loading } = useAuth();
+  const { user, signIn, signUp, loading, signInWithGoogle, resetPassword } = useAuth();
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [forgotPasswordEmail, setForgotPasswordEmail] = useState('');
   
   const [loginForm, setLoginForm] = useState({
     email: '',
@@ -116,6 +118,45 @@ const Login = ({ onPageChange }: LoginProps) => {
       });
     }
     setIsSubmitting(false);
+  };
+
+  const handleGoogleSignIn = async () => {
+    const { error } = await signInWithGoogle();
+    if (error) {
+      toast({
+        title: "Google Sign In Failed",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleForgotPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!forgotPasswordEmail) {
+      toast({
+        title: "Error",
+        description: "Please enter your email address",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const { error } = await resetPassword(forgotPasswordEmail);
+    if (error) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Success",
+        description: "Password reset email sent! Check your inbox.",
+      });
+      setShowForgotPassword(false);
+      setForgotPasswordEmail('');
+    }
   };
 
   const benefits = [
@@ -283,7 +324,10 @@ const Login = ({ onPageChange }: LoginProps) => {
                           Remember me
                         </label>
                       </div>
-                      <button className="text-sm text-bakery-purple hover:text-bakery-purple-light underline">
+                      <button 
+                        onClick={() => setShowForgotPassword(true)}
+                        className="text-sm text-bakery-purple hover:text-bakery-purple-light underline"
+                      >
                         Forgot Password?
                       </button>
                     </div>
@@ -426,6 +470,7 @@ const Login = ({ onPageChange }: LoginProps) => {
                   <div className="mt-6 grid grid-cols-2 gap-3">
                     <Button
                       variant="outline"
+                      onClick={handleGoogleSignIn}
                       className="border-bakery-blue-light text-bakery-blue-muted hover:bg-bakery-blue-light hover:text-bakery-purple"
                     >
                       <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
@@ -452,6 +497,55 @@ const Login = ({ onPageChange }: LoginProps) => {
           </div>
         </div>
       </div>
+
+      {/* Forgot Password Modal */}
+      {showForgotPassword && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
+            <h3 className="text-2xl font-bold text-bakery-purple mb-4">Reset Password</h3>
+            <p className="text-bakery-blue-muted mb-6">
+              Enter your email address and we'll send you a link to reset your password.
+            </p>
+            <form onSubmit={handleForgotPassword} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-bakery-purple mb-2">
+                  Email Address
+                </label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-bakery-blue-muted w-5 h-5" />
+                  <Input
+                    type="email"
+                    value={forgotPasswordEmail}
+                    onChange={(e) => setForgotPasswordEmail(e.target.value)}
+                    placeholder="your.email@example.com"
+                    className="pl-12 bg-bakery-green-soft border-bakery-blue-light focus:border-bakery-purple"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="flex space-x-3">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => {
+                    setShowForgotPassword(false);
+                    setForgotPasswordEmail('');
+                  }}
+                  className="flex-1"
+                >
+                  Cancel
+                </Button>
+                <Button
+                  type="submit"
+                  className="flex-1 bg-bakery-purple hover:bg-bakery-purple-light text-white"
+                >
+                  Send Reset Link
+                </Button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       {/* Trust Indicators */}
       <div className="container mx-auto px-4 mt-16">
