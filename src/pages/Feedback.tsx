@@ -3,6 +3,8 @@ import { Star, Send, ThumbsUp, MessageCircle, Award } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { useFeedback } from '@/hooks/useFeedback';
+import { format } from 'date-fns';
 
 const Feedback: React.FC = () => {
   const [feedbackForm, setFeedbackForm] = useState({
@@ -13,6 +15,7 @@ const Feedback: React.FC = () => {
   });
 
   const [hoveredRating, setHoveredRating] = useState(0);
+  const { feedbacks, isLoading, isSubmitting, submitFeedback } = useFeedback();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -29,53 +32,16 @@ const Feedback: React.FC = () => {
     }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!feedbackForm.name || !feedbackForm.rating || !feedbackForm.comment) {
-      alert('Please fill in all required fields including your rating');
       return;
     }
     
-    alert('Thank you for your feedback! Your review helps us improve our service.');
-    setFeedbackForm({ name: '', email: '', rating: 0, comment: '' });
-  };
-
-  const testimonials = [
-    {
-      name: 'Sarah Johnson',
-      rating: 5,
-      comment: 'Absolutely amazing! The chocolate cake for my daughter\'s birthday was perfect. The attention to detail and the taste were beyond my expectations.',
-      date: 'March 2025',
-      product: 'Custom Birthday Cake'
-    },
-    {
-      name: 'Michael Chen',
-      rating: 5,
-      comment: 'Best pastries in town! I\'ve been coming here for years and the quality never disappoints. The croissants are flaky and buttery perfection.',
-      date: 'February 2025',
-      product: 'French Pastries'
-    },
-    {
-      name: 'Emily Rodriguez',
-      rating: 5,
-      comment: 'The staff is incredibly friendly and helpful. They accommodated my gluten-free needs perfectly, and the cake was delicious!',
-      date: 'February 2025',
-      product: 'Gluten-Free Cake'
-    },
-    {
-      name: 'David Thompson',
-      rating: 4,
-      comment: 'Great variety of healthy options. The oat muffins are my go-to breakfast. Delivery is always on time and the packaging keeps everything fresh.',
-      date: 'January 2025',
-      product: 'Healthy Muffins'
-    },
-    {
-      name: 'Lisa Wong',
-      rating: 5,
-      comment: 'Exceptional service for our wedding cake! Maria worked with us to create exactly what we envisioned. Our guests couldn\'t stop raving about it.',
-      date: 'January 2025',
-      product: 'Wedding Cake'
+    const success = await submitFeedback(feedbackForm);
+    if (success) {
+      setFeedbackForm({ name: '', email: '', rating: 0, comment: '' });
     }
-  ];
+  };
 
   const stats = [
     { value: '4.9', label: 'Average Rating', icon: Star },
@@ -210,10 +176,11 @@ const Feedback: React.FC = () => {
               
               <Button 
                 onClick={handleSubmit}
-                className="w-full bg-bakery-purple hover:bg-bakery-purple-light text-white font-semibold py-4 button-bounce"
+                disabled={isSubmitting}
+                className="w-full bg-bakery-purple hover:bg-bakery-purple-light text-white font-semibold py-4 button-bounce disabled:opacity-50"
               >
                 <Send className="w-5 h-5 mr-2" />
-                Submit Feedback
+                {isSubmitting ? 'Submitting...' : 'Submit Feedback'}
               </Button>
             </div>
           </div>
@@ -231,35 +198,75 @@ const Feedback: React.FC = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <div 
-                key={index}
-                className={`bg-white rounded-3xl p-8 hover-lift fade-in-up delay-${(index + 1) * 100}`}
-              >
-                <div className="flex items-center justify-between mb-4">
-                  {renderStars(testimonial.rating)}
-                  <span className="text-sm text-bakery-blue-muted">{testimonial.date}</span>
-                </div>
-                
-                <p className="text-bakery-blue-muted leading-relaxed mb-6 italic">
-                  "{testimonial.comment}"
-                </p>
-                
-                <div className="border-t border-bakery-blue-light/30 pt-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h4 className="font-semibold text-bakery-purple">{testimonial.name}</h4>
-                      <p className="text-sm text-bakery-blue-muted">{testimonial.product}</p>
+            {isLoading ? (
+              // Loading skeleton
+              Array.from({ length: 6 }).map((_, index) => (
+                <div key={index} className="bg-white rounded-3xl p-8 animate-pulse">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex space-x-1">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <div key={i} className="w-6 h-6 bg-gray-200 rounded"></div>
+                      ))}
                     </div>
-                    <div className="w-12 h-12 bg-bakery-purple-light/20 rounded-full flex items-center justify-center">
-                      <span className="text-bakery-purple font-bold text-lg">
-                        {testimonial.name.charAt(0)}
-                      </span>
+                    <div className="w-20 h-4 bg-gray-200 rounded"></div>
+                  </div>
+                  <div className="space-y-2 mb-6">
+                    <div className="h-4 bg-gray-200 rounded w-full"></div>
+                    <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                    <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                  </div>
+                  <div className="border-t border-gray-200 pt-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="h-4 bg-gray-200 rounded w-24 mb-2"></div>
+                        <div className="h-3 bg-gray-200 rounded w-20"></div>
+                      </div>
+                      <div className="w-12 h-12 bg-gray-200 rounded-full"></div>
                     </div>
                   </div>
                 </div>
+              ))
+            ) : feedbacks.length > 0 ? (
+              feedbacks.map((feedback, index) => (
+                <div 
+                  key={feedback.id}
+                  className={`bg-white rounded-3xl p-8 hover-lift fade-in-up delay-${(index + 1) * 100}`}
+                >
+                  <div className="flex items-center justify-between mb-4">
+                    {renderStars(feedback.rating)}
+                    <span className="text-sm text-bakery-blue-muted">
+                      {format(new Date(feedback.created_at), 'MMMM yyyy')}
+                    </span>
+                  </div>
+                  
+                  <p className="text-bakery-blue-muted leading-relaxed mb-6 italic">
+                    "{feedback.comment}"
+                  </p>
+                  
+                  <div className="border-t border-bakery-blue-light/30 pt-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h4 className="font-semibold text-bakery-purple">{feedback.name}</h4>
+                        {feedback.product && (
+                          <p className="text-sm text-bakery-blue-muted">{feedback.product}</p>
+                        )}
+                      </div>
+                      <div className="w-12 h-12 bg-bakery-purple-light/20 rounded-full flex items-center justify-center">
+                        <span className="text-bakery-purple font-bold text-lg">
+                          {feedback.name.charAt(0).toUpperCase()}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="col-span-full text-center py-12">
+                <MessageCircle className="w-16 h-16 text-bakery-blue-muted mx-auto mb-4" />
+                <h3 className="text-lg font-semibold text-bakery-purple mb-2">No reviews yet</h3>
+                <p className="text-bakery-blue-muted">Be the first to share your experience!</p>
               </div>
-            ))}
+            )}
           </div>
         </div>
       </section>
