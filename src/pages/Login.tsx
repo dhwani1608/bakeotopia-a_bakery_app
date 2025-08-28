@@ -10,13 +10,11 @@ interface LoginProps {
 }
 
 const Login = ({ onPageChange }: LoginProps) => {
-  const { user, signIn, signUp, loading, signInWithGoogle, resetPassword } = useAuth();
+  const { user, signIn, signUp, loading } = useAuth();
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showForgotPassword, setShowForgotPassword] = useState(false);
-  const [forgotPasswordEmail, setForgotPasswordEmail] = useState('');
   
   const [loginForm, setLoginForm] = useState({
     email: '',
@@ -120,29 +118,6 @@ const Login = ({ onPageChange }: LoginProps) => {
     setIsSubmitting(false);
   };
 
-  const benefits = [
-    {
-      icon: '🎂',
-      title: 'Exclusive Offers',
-      description: 'Get special discounts and early access to new products'
-    },
-    {
-      icon: '📅',
-      title: 'Easy Ordering',
-      description: 'Save your favorite items and reorder with one click'
-    },
-    {
-      icon: '🚚',
-      title: 'Order Tracking',
-      description: 'Track your orders from bakery to your doorstep'
-    },
-    {
-      icon: '⭐',
-      title: 'Loyalty Rewards',
-      description: 'Earn points with every purchase and redeem for treats'
-    }
-  ];
-
   return (
     <main className="min-h-screen bg-bakery-green-light py-8 items-center justify-center">
       <div className="container mx-auto px-4">
@@ -245,10 +220,7 @@ const Login = ({ onPageChange }: LoginProps) => {
                           Remember me
                         </label>
                       </div>
-                      <button 
-                        onClick={() => setShowForgotPassword(true)}
-                        className="text-sm text-bakery-purple hover:text-bakery-purple-light underline"
-                      >
+                      <button className="text-sm text-bakery-purple hover:text-bakery-purple-light underline">
                         Forgot Password?
                       </button>
                     </div>
@@ -391,7 +363,6 @@ const Login = ({ onPageChange }: LoginProps) => {
                   <div className="mt-6 grid grid-cols-2 gap-3">
                     <Button
                       variant="outline"
-                      onClick={handleGoogleSignIn}
                       className="border-bakery-blue-light text-bakery-blue-muted hover:bg-bakery-blue-light hover:text-bakery-purple"
                     >
                       <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
@@ -415,30 +386,6 @@ const Login = ({ onPageChange }: LoginProps) => {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Trust Indicators */}
-      <div className="container mx-auto px-4 mt-16">
-        <div className="bg-white rounded-2xl p-8 text-center fade-in-up">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-              <div className="text-3xl mb-2">🔒</div>
-              <h3 className="font-semibold text-bakery-purple mb-2">Secure & Private</h3>
-              <p className="text-bakery-blue-muted text-sm">Your data is protected with industry-standard encryption</p>
-            </div>
-            <div>
-              <div className="text-3xl mb-2">🍰</div>
-              <h3 className="font-semibold text-bakery-purple mb-2">Member Benefits</h3>
-              <p className="text-bakery-blue-muted text-sm">Exclusive discounts and early access to new products</p>
-            </div>
-            <div>
-              <div className="text-3xl mb-2">💬</div>
-              <h3 className="font-semibold text-bakery-purple mb-2">24/7 Support</h3>
-              <p className="text-bakery-blue-muted text-sm">Our friendly team is here to help whenever you need us</p>
-            </div>
-          </div>
         </div>
       </div>
     </main>
