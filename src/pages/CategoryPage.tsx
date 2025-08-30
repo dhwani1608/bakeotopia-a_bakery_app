@@ -22,10 +22,11 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ category, products, onAddTo
   const categoryTitles: { [key: string]: string } = {
     'All': 'All Products',
     'Cake': 'Premium Cakes',
-    'Cupcakes': 'Delicious Cupcakes',
+    'Muffin & Cupcakes': 'Fresh Muffins & Delicious Cupcakes',
     'Pastry': 'Fresh Pastries',
     'Brownie': 'Rich Brownies',
-    'Muffin': 'Fresh Muffins',
+    'Cookies': 'Mouth watering Cookies',
+    'Cheescake': 'Rich & Exotic Cheesecakes',
     'Healthy': 'Healthy Options'
   };
 

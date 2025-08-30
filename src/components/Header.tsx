@@ -15,7 +15,7 @@ interface HeaderProps {
   onCategoryChange: (category: string) => void;
 }
 
-const categories = ['All', 'Pastry', 'Cake', 'Brownie', 'Muffin', 'Cupcakes', 'Healthy'];
+const categories = ['All', 'Pastry', 'Cake', 'Brownie', 'Muffin & Cupcakes', 'Cheesecake' ,  'Cookies', 'Healthy'];
 
 const Header: React.FC<HeaderProps> = ({
   currentPage,
