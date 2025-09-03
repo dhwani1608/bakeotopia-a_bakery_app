@@ -44,7 +44,7 @@ const App = () => {
   const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
   // Redirect to login if not authenticated (except for public pages)
-  const publicPages = ['home', 'about', 'contact', 'login', 'all', 'pastry', 'cake', 'brownie', 'muffin', 'cupcakes', 'healthy'];
+  const publicPages = ['home', 'about', 'contact', 'login', 'all', 'pastry', 'cake', 'brownie', 'muffin & cupcakes', 'cheesecake', 'cookies', 'healthy'];
   if (!loading && !user && !publicPages.includes(currentPage)) {
     setCurrentPage('login');
   }
@@ -59,6 +59,7 @@ const App = () => {
             selectedCategory={selectedCategory}
             onCategoryChange={setSelectedCategory}
             searchQuery={searchQuery}
+            onPageChange={setCurrentPage}
           />
         );
       case 'all':
@@ -97,19 +98,28 @@ const App = () => {
             searchQuery={searchQuery}
           />
         );
-      case 'muffin':
+      case 'muffin & cupcakes':
         return (
           <CategoryPage
-            category="Muffin"
+            category="Muffin & Cupcakes"
             products={products}
             onAddToCart={handleAddToCart}
             searchQuery={searchQuery}
           />
         );
-      case 'cupcakes':
+      case 'cheesecake':
         return (
           <CategoryPage
-            category="Cupcakes"
+            category="Cheesecake"
+            products={products}
+            onAddToCart={handleAddToCart}
+            searchQuery={searchQuery}
+          />
+        );
+      case 'cookies':
+        return (
+          <CategoryPage
+            category="Cookies"
             products={products}
             onAddToCart={handleAddToCart}
             searchQuery={searchQuery}

@@ -17,6 +17,7 @@ interface HomeProps {
   selectedCategory: string;
   onCategoryChange: (category: string) => void;
   searchQuery: string;
+  onPageChange?: (page: string) => void;
 }
 
 const Home: React.FC<HomeProps> = ({ 
@@ -24,7 +25,8 @@ const Home: React.FC<HomeProps> = ({
   onAddToCart, 
   selectedCategory, 
   onCategoryChange,
-  searchQuery 
+  searchQuery,
+  onPageChange
 }) => {
   // Filter products based on category and search
   const filteredProducts = products.filter(product => {
@@ -41,8 +43,9 @@ const Home: React.FC<HomeProps> = ({
     { name: 'Pastry', image: pastries, description: 'Delicate French pastries and croissants' },
     { name: 'Cake', image: chocolateCake, description: 'Rich, layered cakes for every occasion' },
     { name: 'Brownie', image: brownies, description: 'Fudgy chocolate brownies with premium cocoa' },
-    { name: 'Muffin', image: muffins, description: 'Fresh-baked muffins with seasonal fruits' },
-    { name: 'Cupcakes', image: cupcakes, description: 'Artisanal cupcakes with creative toppings' },
+    { name: 'Muffin & Cupcakes', image: muffins, description: 'Fresh-baked muffins and cupcakes' },
+    { name: 'Cheesecake', image: cupcakes, description: 'Rich and exotic cheesecakes' },
+    { name: 'Cookies', image: brownies, description: 'Delicious cookies and biscuits' },
     { name: 'Healthy', image: healthyTreats, description: 'Wholesome treats with natural ingredients' },
   ];
 
@@ -121,7 +124,7 @@ const Home: React.FC<HomeProps> = ({
             <div 
               key={category.name}
               className={`product-card cursor-pointer fade-in-up delay-${(index + 1) * 100} active:scale-95 transition-transform`}
-              onClick={() => onCategoryChange(category.name)}
+              onClick={() => onPageChange?.(category.name.toLowerCase())}
             >
               <div className="relative overflow-hidden rounded-2xl aspect-[4/3] mb-4">
                 <img
