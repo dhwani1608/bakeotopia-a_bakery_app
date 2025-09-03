@@ -119,27 +119,29 @@ const Home: React.FC<HomeProps> = ({
           </p>
         </div>
         
-        <div className="grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 lg:gap-8">
-          {categories.map((category, index) => (
-            <div 
-              key={category.name}
-              className={`product-card cursor-pointer fade-in-up delay-${(index + 1) * 100} active:scale-95 transition-transform`}
-              onClick={() => onPageChange?.(category.name.toLowerCase())}
-            >
-              <div className="relative overflow-hidden rounded-2xl aspect-[4/3] mb-4">
-                <img
-                  src={category.image}
-                  alt={category.name}
-                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 text-white">
-                  <h3 className="text-xl sm:text-2xl font-bold font-poppins">{category.name}</h3>
+        <div className="overflow-x-auto pb-4 sm:overflow-visible">
+          <div className="flex sm:grid gap-4 sm:gap-6 lg:gap-8 sm:grid-cols-2 lg:grid-cols-3 min-w-max sm:min-w-0">
+            {categories.map((category, index) => (
+              <div 
+                key={category.name}
+                className={`flex-none w-64 sm:w-auto product-card cursor-pointer fade-in-up delay-${(index + 1) * 100} active:scale-95 transition-transform`}
+                onClick={() => onPageChange?.(category.name.toLowerCase())}
+              >
+                <div className="relative overflow-hidden rounded-2xl aspect-[4/3] mb-4">
+                  <img
+                    src={category.image}
+                    alt={category.name}
+                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                  <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 text-white">
+                    <h3 className="text-xl sm:text-2xl font-bold font-poppins">{category.name}</h3>
+                  </div>
                 </div>
+                <p className="text-bakery-blue-muted text-center text-sm sm:text-base px-2">{category.description}</p>
               </div>
-              <p className="text-bakery-blue-muted text-center text-sm sm:text-base px-2">{category.description}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
@@ -157,12 +159,14 @@ const Home: React.FC<HomeProps> = ({
             </p>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-            {bestsellers.slice(0, 4).map((product, index) => (
-              <div key={product.id} className={`fade-in-up delay-${(index + 1) * 100}`}>
-                <ProductCard product={product} onAddToCart={onAddToCart} />
-              </div>
-            ))}
+          <div className="overflow-x-auto pb-4 sm:overflow-visible">
+            <div className="flex sm:grid gap-4 sm:gap-6 lg:gap-8 sm:grid-cols-2 lg:grid-cols-4 min-w-max sm:min-w-0">
+              {bestsellers.slice(0, 4).map((product, index) => (
+                <div key={product.id} className={`flex-none w-64 sm:w-auto fade-in-up delay-${(index + 1) * 100}`}>
+                  <ProductCard product={product} onAddToCart={onAddToCart} />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -223,12 +227,14 @@ const Home: React.FC<HomeProps> = ({
             <p className="text-bakery-blue-muted">Try adjusting your search or browse different categories</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
-            {filteredProducts.map((product, index) => (
-              <div key={product.id} className={`fade-in-up delay-${(index % 4 + 1) * 100}`}>
-                <ProductCard product={product} onAddToCart={onAddToCart} />
-              </div>
-            ))}
+          <div className="overflow-x-auto pb-4 sm:overflow-visible">
+            <div className="flex sm:grid gap-4 sm:gap-6 lg:gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 min-w-max sm:min-w-0">
+              {filteredProducts.map((product, index) => (
+                <div key={product.id} className={`flex-none w-64 sm:w-auto fade-in-up delay-${(index % 4 + 1) * 100}`}>
+                  <ProductCard product={product} onAddToCart={onAddToCart} />
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </section>
