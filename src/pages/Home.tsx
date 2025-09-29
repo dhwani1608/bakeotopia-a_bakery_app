@@ -4,12 +4,13 @@ import { Button } from '@/components/ui/button';
 import ProductCard from '@/components/ProductCard';
 import { Product } from '@/hooks/useProducts';
 import heroImage from '@/assets/bakery-hero.jpg';
-import chocolateCake from '@/assets/chocolate-cake.jpg';
+import chocolateCake from '@/assets/Belgian Chocolate Cake.jpg';
 import cupcakes from '@/assets/cupcakes.jpg';
-import muffins from '@/assets/muffins.jpg';
 import brownies from '@/assets/brownies.jpg';
-import pastries from '@/assets/pastries.jpg';
-import healthyTreats from '@/assets/healthy-treats.jpg';
+import pastries from '@/assets/biscoff_pastry.jpg';
+import healthyTreats from '@/assets/Nutty Choco Oats Bites.jpg';
+import cheesecake from '@/assets/oreo_cheesecake.jpg';
+import cookies from '@/assets/Chocolate Chip Cookies.jpg';
 
 interface HomeProps {
   products: Product[];
@@ -43,24 +44,24 @@ const Home: React.FC<HomeProps> = ({
     { name: 'Pastry', image: pastries, description: 'Delicate French pastries and croissants' },
     { name: 'Cake', image: chocolateCake, description: 'Rich, layered cakes for every occasion' },
     { name: 'Brownie', image: brownies, description: 'Fudgy chocolate brownies with premium cocoa' },
-    { name: 'Muffin & Cupcakes', image: muffins, description: 'Fresh-baked muffins and cupcakes' },
-    { name: 'Cheesecake', image: cupcakes, description: 'Rich and exotic cheesecakes' },
-    { name: 'Cookies', image: brownies, description: 'Delicious cookies and biscuits' },
+    { name: 'Muffin & Cupcakes', image: cupcakes, description: 'Fresh-baked muffins and cupcakes' },
+    { name: 'Cheesecake', image: cheesecake, description: 'Rich and exotic cheesecakes' },
+    { name: 'Cookies', image: cookies, description: 'Delicious cookies and biscuits' },
     { name: 'Healthy', image: healthyTreats, description: 'Wholesome treats with natural ingredients' },
   ];
 
   const festivalOffers = [
     {
-      title: "Valentine's Special",
-      description: "Heart-shaped cakes and romantic treats",
-      discount: "25% OFF",
+      title: "Navratri Special",
+      description: "Make this Navratri more memorable with BakeOTopia",
+      discount: "Flat 25% OFF in Cakes and more offers just for you...",
       color: "from-bakery-rose to-bakery-pink"
     },
     {
-      title: "Spring Collection",
-      description: "Fresh seasonal flavors and colors",
+      title: "Special Gift Collection",
+      description: "Gift your loved ones something special something unique",
       discount: "20% OFF",
-      color: "from-bakery-cream to-bakery-vanilla"
+      color: "from-amber-100 to-amber-200"
     }
   ];
 
