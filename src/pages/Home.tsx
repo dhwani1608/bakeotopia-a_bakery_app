@@ -103,6 +103,7 @@ const Home: React.FC<HomeProps> = ({
               variant="outline"
               size="lg"
               className="border-white text-white hover:bg-white hover:text-bakery-purple px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold w-full sm:w-auto min-h-[48px]"
+              onClick={() => document.getElementById('festival-offers')?.scrollIntoView({ behavior: 'smooth' })}
             >
               <Gift className="mr-2 w-4 sm:w-5 h-4 sm:h-5" />
               Special Offers
@@ -173,7 +174,7 @@ const Home: React.FC<HomeProps> = ({
       </section>
 
       {/* Festival Offers Section */}
-      <section className="container mx-auto px-4">
+      <section id="festival-offers" className="container mx-auto px-4">
         <div className="text-center mb-12">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Gift className="w-6 h-6 text-bakery-purple" />
