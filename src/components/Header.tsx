@@ -115,7 +115,10 @@ const Header: React.FC<HeaderProps> = ({
             {user ? (
               <div className="flex items-center space-x-2">
                 <span className="hidden sm:block text-sm text-bakery-blue-text">
-                  {profile?.display_name || user.email?.split('@')[0] || 'User'}
+                  {(() => {
+                    const displayName = profile?.display_name || user.email || 'User';
+                    return displayName.includes('@') ? displayName.split('@')[0] : displayName;
+                  })()}
                 </span>
                 <Button
                   variant="ghost"
@@ -197,7 +200,10 @@ const Header: React.FC<HeaderProps> = ({
                   }}
                   className="sm:hidden text-left px-3 py-2 rounded-lg text-bakery-blue-text hover:bg-bakery-blue-light/30"
                 >
-                  Sign Out ({profile?.display_name || user.email?.split('@')[0] || 'User'})
+                  Sign Out ({(() => {
+                    const displayName = profile?.display_name || user.email || 'User';
+                    return displayName.includes('@') ? displayName.split('@')[0] : displayName;
+                  })()})
                 </button>
               ) : (
                 <button
