@@ -13,7 +13,8 @@ export default defineConfig(({ mode }) => ({
     react(),
     mode === 'development' &&
     componentTagger(),
-  ].filter(Boolean),
+  ].filter(Boolean), 
+  base: process.env.VITE_BASE_PATH || "/bakeotopia-lovable-ai-generator",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
