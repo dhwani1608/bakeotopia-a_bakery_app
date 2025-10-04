@@ -84,10 +84,6 @@ const Home: React.FC<HomeProps> = ({
             <p className="text-lg sm:text-xl md:text-2xl mb-3 sm:mb-4 font-medium">
               Home of Quality Baking
             </p>
-            <p className="text-base sm:text-lg mb-6 sm:mb-8 opacity-90 max-w-2xl mx-auto px-2">
-              Discover our artisanal collection of cakes, pastries, and treats crafted with love, 
-              premium ingredients, and generations of baking expertise.
-            </p>
           </div>
           
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4 sm:px-0">
