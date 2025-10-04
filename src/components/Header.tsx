@@ -50,8 +50,13 @@ const Header: React.FC<HeaderProps> = ({
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center space-x-2">
+            <img
+              src="/public/favicon.ico"
+              alt="BakeOTopia Logo"
+              className="w-9 h-9 rounded-full object-cover"
+            />
             <div className="text-2xl font-bold font-poppins text-gradient">
-              BakeOTopia
+              BakeOTopia    
             </div>
             <div className="hidden sm:block text-sm text-bakery-blue-muted font-medium">
               Home of quality baking

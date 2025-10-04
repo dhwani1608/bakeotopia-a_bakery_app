@@ -10,7 +10,7 @@ interface LoginProps {
 }
 
 const Login = ({ onPageChange }: LoginProps) => {
-  const { user, signIn, signUp, loading } = useAuth();
+  const { user, signIn, signUp, loading, signInWithGoogle } = useAuth();
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -362,6 +362,7 @@ const Login = ({ onPageChange }: LoginProps) => {
 
                   <div className="mt-6 grid grid-cols-2 gap-3">
                     <Button
+                      onClick={signInWithGoogle}
                       variant="outline"
                       className="border-bakery-blue-light text-bakery-blue-muted hover:bg-bakery-blue-light hover:text-bakery-purple"
                     >

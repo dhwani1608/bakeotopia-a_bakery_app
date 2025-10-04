@@ -276,7 +276,7 @@ const About: React.FC = () => {
 
           <div className="max-w-md mx-auto bg-white/10 backdrop-blur-md rounded-2xl p-8 hover-lift fade-in-up">
             <img
-              src="/images/master-baker.jpg"
+              src="/src/assets/master-baker.jpg"
               alt="Master Baker"
               className="w-40 h-40 object-cover rounded-full mx-auto mb-6 border-4 border-white/30"
             />
