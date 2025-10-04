@@ -19,7 +19,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
       {/* Image Container */}
       <div className="relative overflow-hidden rounded-t-2xl aspect-[4/3]">
         <img
-          src={product.image}
+          src={`/${product.image}`}
           alt={product.name}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
