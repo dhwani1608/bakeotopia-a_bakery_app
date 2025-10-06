@@ -51,7 +51,7 @@ const Header: React.FC<HeaderProps> = ({
           {/* Logo */}
           <div className="flex items-center space-x-2">
             <img
-              src="/public/favicon.ico"
+              src="/favicon.ico"
               alt="BakeOTopia Logo"
               className="w-9 h-9 rounded-full object-cover"
             />
