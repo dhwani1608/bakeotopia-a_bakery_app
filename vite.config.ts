@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => ({
     mode === 'development' &&
     componentTagger(),
   ].filter(Boolean), 
-  base: mode === 'production' ? (process.env.VITE_BASE_PATH || "/bakeotopia-lovable-ai-generator") : "/",
+  base: "/",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
